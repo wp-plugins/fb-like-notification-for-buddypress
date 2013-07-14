@@ -2,7 +2,7 @@
 /* 
 Plugin Name: FB like notification for buddypress
 Plugin URI: http://www.emediaidentity.com/bp-fb-like-notification/
-Description: This Buddypress plugin updates notification and browser window title while user is away
+Description: This Buddypress plugin updates notifications list and browser window title while user is away
 Version: 1.0
 Revision Date: 14 07, 2013
 Requires at least: Wordress 3.0, Buddypress 1.6.5 

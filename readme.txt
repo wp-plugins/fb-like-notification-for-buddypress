@@ -6,7 +6,7 @@ Requires at least: Wordress 3.0, Buddypress 1.6.5
 Tested up to: Wordpress 3.5.2, Buddypress 1.7.3
 Stable tag: 1.0
 
-This Buddypress plugin updates notification and browser window title while user is away
+This Buddypress plugin updates notifications list and browser window title while user is away
 
 == Description ==
 
