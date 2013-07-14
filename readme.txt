@@ -1,12 +1,12 @@
 ﻿=== FB like notification for buddypress ===
 Contributors: ckchaudhary 
 Donate link:http://emediaidentity.com
-Tags: buddypress, notification, auto refresh notification
-Requires at least: Wordress 3.0, Buddypress 1.6.5 
-Tested up to: Wordpress 3.5.2, Buddypress 1.7.3
+Tags: buddypress, buddypress notification, auto refresh notification
+Requires at least: WordPress 3.0, BuddyPress 1.6.5 
+Tested up to: WordPress 3.5.2, BuddyPress 1.7.3
 Stable tag: 1.0
 
-This Buddypress plugin updates notification and browser window title while user is away
+This Buddypress plugin updates notifications list and browser window title while user is away
 
 == Description ==
 
@@ -29,3 +29,12 @@ The plugin repeatedly checks for new notifications for the loggedin user and if 
 == Installation ==
 
 Extract the zip file and just drop the contents in the wp-content/plugins/ directory of your WordPress installation and then activate the Plugin from Plugins page.
+
+== Changelog ==
+
+= 1.0 =
+* Minor Bug Fixes and improvements.
+* A stable release
+
+= 0.1 =
+* Initial beta release.
