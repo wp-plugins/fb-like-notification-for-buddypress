@@ -118,7 +118,7 @@ function bfln_notification_html(json_data) {
 		BFLN_.newnotification = bfln_n_n_updated_count;
 		
 		BFLN_.stop_blinking = false;
-		bfln_blink_browser_title();//start dancing, boy!
+		bfln_blink_browser_title();//start dancing
 		
 		//ab-pending-notifications is the id of the span which displays notificatio count in admin bar
 		jq("#ab-pending-notifications").html(bfln_n_n_updated_count);
@@ -127,6 +127,8 @@ function bfln_notification_html(json_data) {
 			jq("#ab-pending-notifications").removeClass("no-alert").removeClass("count").addClass("pending-count").addClass("alert");
 		}
 		
+		//remove the item which says 'no notifiations'
+		jq("#wp-admin-bar-no-notifications").remove();
 	}
 	//phew! it was lengthy
 }

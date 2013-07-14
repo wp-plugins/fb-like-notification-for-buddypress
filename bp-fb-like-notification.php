@@ -1,12 +1,12 @@
 <?php 
 /* 
 Plugin Name: FB like notification for buddypress
-Plugin URI: http://emediaidentity.com/bp-fb-like-notification/
+Plugin URI: http://www.emediaidentity.com/bp-fb-like-notification/
 Description: This Buddypress plugin updates notification and browser window title while user is away
-Version: 0.1
-Revision Date: 08 02, 2013
-Requires at least: WP 3.4.1, BuddyPress 1.6
-Tested up to: WP 3.2.1, BuddyPress 1.6
+Version: 1.0
+Revision Date: 14 07, 2013
+Requires at least: Wordress 3.0, Buddypress 1.6.5 
+Tested up to: Wordpress 3.5.2, Buddypress 1.7.3
 License: GNU General Public License 2.0 (GPL) http://www.gnu.org/licenses/gpl.html
 Author: ckchaudhary
 Author URI: http://webdeveloperswall.com/
@@ -14,12 +14,29 @@ Network: true
 */
 
 //do anything only if buddypress is active
-add_action( 'bp_include', function() { new BP_FB_like_notification(); } );
+add_action( 'bp_include', 'bfln_instantiate' );
+function bfln_instantiate() { 
+	new BP_FB_like_notification(); 
+}
 
 class BP_FB_like_notification {
 	function __construct() {
-		add_action( 'wp_enqueue_scripts',  array( $this, 'enqueue_scripts' ) );
-		add_action( 'wp_ajax_bfln_get_notification',  array( $this, 'ajax_get_notifications' ) );
+		$load_plugin = false;
+		if( is_user_logged_in() ){
+			$load_plugin = true;
+		}
+
+		/* The plugin loads another javascript file(one more HTTP request), and causes multiple ajax requests to server.
+		 * You can use the below filter to conditionaly load the plugin.
+		 		E.g: load the plugin based on user roles!!
+		 			 just return false, from your hooked function and the plugin wouldn't be loaded
+	 	*/
+		$load_plugin = apply_filters( 'bfln_load_plugin', $load_plugin );
+
+		if( $load_plugin ){
+			add_action( 'wp_enqueue_scripts',  array( $this, 'enqueue_scripts' ) );
+			add_action( 'wp_ajax_bfln_get_notification',  array( $this, 'ajax_get_notifications' ) );	
+		}
 	}
 	
 	function enqueue_scripts(){
@@ -31,15 +48,15 @@ class BP_FB_like_notification {
 		
 		/*the time interval : after each interval an ajax request to check for new notification is triggered
 		default is 2 minutes : 2*60*1000: computers understand milliseconds only :) 
-		if you want change 2 minutes to something else, replace 2 with something else in the line below*/
-		$time = 2*60*1000;
+		if you want change 2 minutes to something else, use the filter*/
+		$time = apply_filters( 'bfln_ajax_interval', 2*60*1000 );
 
 		$arguments = array(
 			"action"	=> "bfln_get_notification",
 			"time"		=> $time,
-			"doctitle"	=> "", /*so that javascript can access it without running into null pointer exceptions*/
-			"newdoctitle"	=> "", /*so that javascript can access it without running into null pointer exceptions*/
-			"newnotification"	=> 0 /*so that javascript can access it without running into null pointer exceptions*/
+			"doctitle"	=> "",
+			"newdoctitle"	=> "",
+			"newnotification"	=> 0 
 		);
 
 		wp_localize_script( "bfln_main", "BFLN_", $arguments );

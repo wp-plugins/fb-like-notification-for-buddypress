@@ -2,9 +2,9 @@
 Contributors: ckchaudhary 
 Donate link:http://emediaidentity.com
 Tags: buddypress, notification, auto refresh notification
-Requires at least: 1.6
-Tested up to: 1.6.5
-Stable tag: 0.1
+Requires at least: Wordress 3.0, Buddypress 1.6.5 
+Tested up to: Wordpress 3.5.2, Buddypress 1.7.3
+Stable tag: 1.0
 
 This Buddypress plugin updates notification and browser window title while user is away
 
@@ -22,11 +22,7 @@ The plugin repeatedly checks for new notifications for the loggedin user and if 
 
  
 
-**Note: **The second (updating notification menu) has been developed according to the markup of default buddybar/wp-admin bar, so if your theme doesn't have one, or have a custom notification list, it wont work, although the broswer title will update just fine.
-
-The plugin is still in testing mode, and i wouldn't suggest you use it on an actual production website straight away.
-
-Please report bugs and suggestions.
+**Note: **The second (updating notification menu) has been developed according to the markup of default buddybar/wp-admin bar, so if your theme doesn't have one, or have a custom notification list, it wont work.
 
  
 
