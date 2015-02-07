@@ -3,8 +3,8 @@ Contributors: ckchaudhary
 Donate link:http://emediaidentity.com
 Tags: buddypress, buddypress notification, auto refresh notification
 Requires at least: WordPress 3.0, BuddyPress 1.6.5 
-Tested up to: WordPress 3.5.2, BuddyPress 1.7.3
-Stable tag: 1.0
+Tested up to: WordPress 4.1, BuddyPress 4.2
+Stable tag: 1.1
 
 This Buddypress plugin updates notifications list and browser window title while user is away
 
@@ -31,6 +31,9 @@ The plugin repeatedly checks for new notifications for the loggedin user and if 
 Extract the zip file and just drop the contents in the wp-content/plugins/ directory of your WordPress installation and then activate the Plugin from Plugins page.
 
 == Changelog ==
+= 1.1 =
+* Added nonce check in ajax request.
+* Enqueued minified version of script.
 
 = 1.0 =
 * Minor Bug Fixes and improvements.
