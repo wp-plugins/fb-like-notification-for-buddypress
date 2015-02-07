@@ -12,12 +12,13 @@ function bfln_check_notifications(){
 	}
 
 	var data = {
-		action: BFLN_.action
+		action: BFLN_.action,
+		nonce : BFLN_.nonce
 	};
 
 	BFLN_.doingajax = true;
 	if( BFLN_.debug )
-		console.log("started ajax request");
+		console.log("BFLN - started ajax request");
 
 	jq.ajax({
 		type: "POST",
@@ -27,7 +28,7 @@ function bfln_check_notifications(){
 			bfln_after_get_new_notification(response);
 			BFLN_.doingajax = false; //reset it so that next ajax request can process
 			if( BFLN_.debug )
-				console.log( "ajax request completed, aborting" );
+				console.log( "BFLN - ajax request completed, aborting" );
 		}
 	});
 	t = setTimeout(bfln_check_notifications, BFLN_.time);

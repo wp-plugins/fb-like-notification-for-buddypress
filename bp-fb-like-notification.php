@@ -3,10 +3,10 @@
 Plugin Name: FB like notification for buddypress
 Plugin URI: http://www.emediaidentity.com/bp-fb-like-notification/
 Description: This Buddypress plugin updates notifications list and browser window title while user is away
-Version: 1.0
-Revision Date: 14 07, 2013
+Version: 1.1
+Revision Date: 01 12, 2013
 Requires at least: 3.0
-Tested up to: 3.5.2
+Tested up to: 3.7.1
 License: GNU General Public License 2.0 (GPL) http://www.gnu.org/licenses/gpl.html
 Author: ckchaudhary
 Author URI: http://webdeveloperswall.com/
@@ -16,10 +16,19 @@ Network: true
 //do anything only if buddypress is active
 add_action( 'bp_include', 'bfln_instantiate' );
 function bfln_instantiate() { 
-	new BP_FB_like_notification(); 
+	$instance = BP_FB_like_notification::get_instance();
 }
 
 class BP_FB_like_notification {
+	private static $instance;
+
+    public static function get_instance(){
+        if(!isset(self::$instance)){
+            self::$instance=new self();
+        }
+        return self::$instance;
+    }
+
 	function __construct() {
 		$load_plugin = false;
 		if( is_user_logged_in() ){
@@ -46,24 +55,27 @@ class BP_FB_like_notification {
 			array( 'jquery' )
 		);
 		
-		/*the time interval : after each interval an ajax request to check for new notification is triggered
-		default is 2 minutes : 2*60*1000: computers understand milliseconds only :) 
-		if you want change 2 minutes to something else, use the filter*/
+		/*
+		The time interval : after each interval an ajax request to check for new notification is triggered.
+		Default is 2 minutes : 2*60*1000: in milliseconds
+		If you want change 2 minutes to something else, use the filter
+		*/
 		$time = apply_filters( 'bfln_ajax_interval', 2*60*1000 );
 
 		$arguments = array(
-			"action"	=> "bfln_get_notification",
-			"time"		=> $time,
-			"doctitle"	=> "",
-			"newdoctitle"	=> "",
+			"action"			=> "bfln_get_notification",
+			"time"				=> (int)$time,
+			"nonce"				=> wp_create_nonce( "bfln_main" ),
+			"doctitle"			=> "",
+			"newdoctitle"		=> "",
 			"newnotification"	=> 0 
 		);
 
 		wp_localize_script( "bfln_main", "BFLN_", $arguments );
 	}
-
 	
 	function ajax_get_notifications(){
+		check_ajax_referer( 'bfln_main', 'nonce' );
 		$retVal = array(
 			"count"	=> 0,
 			"notifications"	=> ""
